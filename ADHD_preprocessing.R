@@ -33,7 +33,12 @@ clean_adhd <- data.table(
   BETA = log(df$OR),
   P    = df$P,
   N    = df$N,
-  INFO = df$INFO
+  INFO = df$INFO,
+  
+  MAF  = pmin(
+    df$FRQ_U_186843,
+    1 - df$FRQ_U_186843
+  )
 )
 
 # 4. Remove rows with invalid or missing values

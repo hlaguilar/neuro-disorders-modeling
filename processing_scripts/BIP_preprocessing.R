@@ -13,7 +13,7 @@ clean_bip <- data.table(
   SNP  = as.character(df$SNP),
   A1   = toupper(df$A1),
   A2   = toupper(df$A2),
-  BETA = BETA,
+  BETA = df$BETA,
   P    = df$PVAL,
   N    = df$N,
   INFO = df$IMPINFO,

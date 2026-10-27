@@ -10,7 +10,7 @@ df[, N := 2 * NEFFDIV2] #NEFFDIV2: half the effective sample size
 
 #create the standardized file
 clean_bip <- data.table(
-  SNP  = as.character(df$SNP),
+  SNP  = as.character(df$ID),
   A1   = toupper(df$A1),
   A2   = toupper(df$A2),
   BETA = df$BETA,
@@ -28,7 +28,7 @@ clean_bip <- data.table(
 clean_bip <- clean_bip[
   !is.na(SNP) & SNP != "" &
     is.finite(BETA) &
-    !is.na(P) & is.finite(P) >= 0 & P <= 1 &
+    !is.na(P) & is.finite(P) & P >= 0 & P <= 1 &
     is.finite(N) & N > 0 &
     is.finite(INFO) & INFO >= 0 & INFO <= 1 &
     is.finite(MAF) & MAF >= 0 & MAF <= 0.5 &

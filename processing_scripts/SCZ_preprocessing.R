@@ -1,7 +1,7 @@
 library(data.table)
 
 df <- fread(
-  "PGC3_SCZ_wave3.european.autosome.public.v3.vcf.tsv",
+  "sumStats/PGC3_SCZ_wave3.european.autosome.public.v3.vcf.tsv",
   skip = "CHROM" #skipping to #CHROM header
 )
 

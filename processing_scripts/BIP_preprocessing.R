@@ -25,7 +25,7 @@ clean_bip <- data.table(
 
 
 #remove rows with invalid or missing values
-clean_bip <- clean_anx[
+clean_bip <- clean_bip[
   !is.na(SNP) & SNP != "" &
     is.finite(BETA) &
     !is.na(P) & is.finite(P) >= 0 & P <= 1 &

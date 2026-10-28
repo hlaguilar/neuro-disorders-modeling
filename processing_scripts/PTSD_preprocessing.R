@@ -18,7 +18,6 @@ clean_ptsd <- data.table(
   Z    = df$Z,
   P    = df$P,
   N    = df$N,
-  INFO = df$IMPINFO,
   MAF  = pmin(
     df$FREQ, #MAF for control allele freq
     1 - df$FREQ

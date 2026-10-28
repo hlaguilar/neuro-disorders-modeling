@@ -29,10 +29,9 @@ clean_ptsd <- data.table(
 #remove rows with invalid or missing values
 clean_ptsd <- clean_ptsd[
   !is.na(SNP) & SNP != "" &
-    is.finite(BETA) &
+    is.finite(Z) &
     !is.na(P) & is.finite(P) & P >= 0 & P <= 1 &
     is.finite(N) & N > 0 &
-    is.finite(INFO) & INFO >= 0 & INFO <= 1 &
     is.finite(MAF) & MAF >= 0 & MAF <= 0.5 &
     A1 %chin% c("A", "C", "G", "T") &
     A2 %chin% c("A", "C", "G", "T") &
@@ -47,11 +46,7 @@ fwrite(clean_ptsd, "clean/ptsd_cleaned.txt", sep = "\t")
 #print results
 cat("Rows in cleaned file:", nrow(clean_ptsd), "\n")
 cat("Duplicate SNP IDs:", sum(duplicated(clean_ptsd$SNP)), "\n")
-cat("Invalid BETA: ", sum(!is.finite(df$PVAL) | df$PVAL < 0 | 
-                            df$PVAL > 1), "\n")
 cat("Invalid P-vals: ", sum(!is.finite(df$PVAL) | df$PVAL < 0 |
                               df$PVAL > 1), "\n")
-cat("Invalid INFO: ", sum(!is.finite(df$IMPINFO) | df$IMPINFO < 0 |
-                            df$IMPINFO > 1), "\n")
 cat("Invalid OR:", sum(!is.finite(df$OR) | df$OR <= 0), "\n")
-summary(clean_ptsd[, .(BETA, P, N, INFO, MAF)])
+summary(clean_ptsd[, .(Z, P, N, INFO, MAF)])

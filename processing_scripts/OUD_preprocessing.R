@@ -2,7 +2,7 @@ library(data.table)
 
 
 df <- fread(
-  "OUD_EUR_SUMstats_DEAK2022",
+  "sumStats/OUD_EUR_SUMstats_DEAK2022",
 )
 
 

@@ -2,7 +2,7 @@ library(data.table)
 
 
 df <- fread(
-  "ptsd_sumStats.vcf",
+  "sumStats/ptsd_sumStats.vcf",
   skip = "#CHROM" #skipping to #CHROM header
 )
 

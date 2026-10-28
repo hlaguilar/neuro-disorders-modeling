@@ -48,4 +48,4 @@ cat("Duplicate SNP IDs:", sum(duplicated(clean_ptsd$SNP)), "\n")
 cat("Invalid P-vals: ", sum(!is.finite(df$PVAL) | df$PVAL < 0 |
                               df$PVAL > 1), "\n")
 cat("Invalid OR:", sum(!is.finite(df$OR) | df$OR <= 0), "\n")
-summary(clean_ptsd[, .(Z, P, N, INFO, MAF)])
+summary(clean_ptsd[, .(Z, P, N, MAF)])

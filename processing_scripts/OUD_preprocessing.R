@@ -33,4 +33,4 @@ fwrite(clean_oud, "clean/mdd_cleaned.txt", sep = "\t")
 #print results
 cat("Rows in cleaned file:", nrow(clean_oud), "\n")
 cat("Duplicate SNP IDs:", sum(duplicated(clean_oud$SNP)), "\n")
-summary(clean_oud[, .(P, N)])
+summary(clean_oud[, .(P, Z)])

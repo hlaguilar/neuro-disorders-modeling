@@ -17,7 +17,7 @@ clean_oud <- data.table(
 
 
 #remove rows with invalid or missing values
-clean_oud <- clean_mdd[
+clean_oud <- clean_oud[
   !is.na(SNP) & SNP != "" &
     !is.na(P) & is.finite(P) & P >= 0 & P <= 1 &
     A1 %chin% c("A", "C", "G", "T") &
@@ -28,9 +28,9 @@ clean_oud <- clean_mdd[
 
 
 #save file to clean folder
-fwrite(clean_mdd, "clean/mdd_cleaned.txt", sep = "\t")
+fwrite(clean_oud, "clean/mdd_cleaned.txt", sep = "\t")
 
 #print results
-cat("Rows in cleaned file:", nrow(clean_mdd), "\n")
-cat("Duplicate SNP IDs:", sum(duplicated(clean_mdd$SNP)), "\n")
-summary(clean_mdd[, .(P, N)])
+cat("Rows in cleaned file:", nrow(clean_oud), "\n")
+cat("Duplicate SNP IDs:", sum(duplicated(clean_oud$SNP)), "\n")
+summary(clean_oud[, .(P, N)])

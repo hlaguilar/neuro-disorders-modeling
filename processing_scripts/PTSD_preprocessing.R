@@ -16,7 +16,7 @@ clean_ptsd <- data.table(
   A1   = toupper(df$A1),
   A2   = toupper(df$A2),
   Z    = df$Z,
-  P    = df$PVAL,
+  P    = df$P,
   N    = df$N,
   INFO = df$IMPINFO,
   MAF  = pmin(

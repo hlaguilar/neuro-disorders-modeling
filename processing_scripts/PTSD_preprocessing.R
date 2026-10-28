@@ -6,6 +6,25 @@ df <- fread(
   skip = "#CHROM" #skipping to #CHROM header
 )
 
+#check filtering:
+cat("Raw rows:", nrow(df), "\n")
+print(names(df))
+
+cat("\nRaw Z distribution:\n")
+print(summary(df$Z))
+
+cat("\nRaw P distribution:\n")
+print(summary(df$P))
+
+cat("\nRaw P-values > 0.05:",
+    sum(df$P > 0.05, na.rm = TRUE), "\n")
+
+cat("\nRaw Z values not finite:",
+    sum(!is.finite(df$Z)), "\n")
+
+cat("\nRaw P-values not finite:",
+    sum(!is.finite(df$P)), "\n")
+
 #calculate effective sample size for each variant
 df[, N := NEFF]
 
@@ -19,7 +38,7 @@ clean_ptsd <- data.table(
   P    = df$P,
   N    = df$N,
   MAF  = pmin(
-    df$FREQ, #MAF for control allele freq
+    df$FREQ, #MAF for A1 freq
     1 - df$FREQ
   )
 )
@@ -45,7 +64,7 @@ fwrite(clean_ptsd, "clean/ptsd_cleaned.txt", sep = "\t")
 #print results
 cat("Rows in cleaned file:", nrow(clean_ptsd), "\n")
 cat("Duplicate SNP IDs:", sum(duplicated(clean_ptsd$SNP)), "\n")
-cat("Invalid P-vals: ", sum(!is.finite(df$PVAL) | df$PVAL < 0 |
-                              df$PVAL > 1), "\n")
-cat("Invalid OR:", sum(!is.finite(df$OR) | df$OR <= 0), "\n")
+cat("Invalid P-vals: ", sum(!is.finite(df$P) | df$P < 0 |
+                              df$P > 1), "\n")
+cat("Invalid OR:", sum(!is.finite(df$Z) | df$Z <= 0), "\n")
 summary(clean_ptsd[, .(Z, P, N, MAF)])

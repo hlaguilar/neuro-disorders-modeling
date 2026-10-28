@@ -28,7 +28,7 @@ clean_oud <- clean_oud[
 
 
 #save file to clean folder
-fwrite(clean_oud, "clean/mdd_cleaned.txt", sep = "\t")
+fwrite(clean_oud, "clean/oud_cleaned.txt", sep = "\t")
 
 #print results
 cat("Rows in cleaned file:", nrow(clean_oud), "\n")

@@ -3,10 +3,31 @@ library(data.table)
 
 
 #load raw CUD summary statistics
-df <- fread(
-  "sumStats/dbGAP_EUR_CanMVP_META",
-  fill = TRUE
+file <- "sumStats/dbGAP_EUR_CanMVP_META"
+
+#read the entire file as text
+lines <- readLines(
+  file,
+  warn = FALSE,
+  encoding = "bytes"
 )
+
+
+#remove the malformed record
+lines <- lines[
+  !grepl("^rs12897957[[:space:]]", lines)
+]
+
+
+#read the remaining summary statistics
+df <- fread(
+  text = lines,
+  header = TRUE
+)
+
+
+#print raw dataset information
+cat("Rows in raw dataset:", nrow(df), "\n")
 
 
 #create standardized summary statistics

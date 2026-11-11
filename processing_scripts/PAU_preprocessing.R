@@ -1,13 +1,27 @@
 library(data.table)
 
+file <- "sumStats/PAU_EUR_AUG2023.txt"
 
+#read the file lines
+lines <- readLines(file, skipNul = TRUE)
+
+#preserve the header
+header <- strsplit(lines[1], "\t", fixed = TRUE)[[1]]
+
+#rows with 12 fields
+line_counts <- count.fields(file, sep = "\t")
+valid_lines <- which(line_counts == 12) + 1
+
+#read only correctly formatted rows
 df <- fread(
-  "sumStats/PAU_EUR_AUG2023.txt",
+  text = paste(lines[valid_lines], collapse = "\n"),
+  sep = "\t",
+  header = FALSE
 )
 
+#assign original column names
+setnames(df, header)
 
-#calculate effective sample size for each variant
-df[, N := SampleSize]
 
 #create the standardized file
 clean_pau <- data.table(
@@ -24,6 +38,8 @@ clean_pau <- data.table(
 clean_pau <- clean_pau[
   !is.na(SNP) & SNP != "" &
     !is.na(P) & is.finite(P) & P >= 0 & P <= 1 &
+    !is.na(BETA) & is.finite(BETA) &
+    !is.na(N) & is.finite(N) & N > 0 &
     A1 %chin% c("A", "C", "G", "T") &
     A2 %chin% c("A", "C", "G", "T") &
     A1 != A2

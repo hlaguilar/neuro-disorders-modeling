@@ -7,14 +7,16 @@ df <- fread(
 
 
 #calculate effective sample size for each variant
-df[, N := SampleSizeEffect]
+df[, N := SampleSize]
 
 #create the standardized file
 clean_pau <- data.table(
-  SNP = as.character(df$SNP_ID),
-  A1  = toupper(df$Allele1),
-  A2  = toupper(df$Allele2),
-  P   = df$PValue
+  SNP  = as.character(df$SNP_ID),
+  A1   = toupper(df$EA),
+  A2   = toupper(df$Allele2),
+  BETA = df$Effect,  
+  P    = df$PValue,
+  N    = df$SampleSize
 )
 
 
@@ -36,7 +38,6 @@ fwrite(clean_pau, "clean/pau_cleaned.txt", sep = "\t")
 #print results
 cat("Rows in cleaned file:", nrow(clean_pau), "\n")
 cat("Duplicate SNP IDs:", sum(duplicated(clean_pau$SNP)), "\n")
-summary(clean_pau[, .(P, Z)])
 
 
 

@@ -1,4 +1,3 @@
-install.packages("ggplot2")
 library(ggplot2)
 
 S <- as.matrix(LDSCoutput_updated$S)

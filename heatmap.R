@@ -1,5 +1,7 @@
 library(ggplot2)
 
+LDSCoutput_updated <- readRDS("ldsc/LDSC_updated_PTSD_v2.rds")
+
 S <- as.matrix(LDSCoutput_updated$S)
 rownames(S) <- colnames(S)
 
